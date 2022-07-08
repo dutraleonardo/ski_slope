@@ -50,10 +50,12 @@ defmodule SkiSlope.Skier do
     {:noreply, state}
   end
 
+  # Essa função é acionada quando atinge o limite de 120 esquiadores, então uma mensagem de encerrar a criação é enviada
   def schedule_next_skier(%{counter: 120}) do
     Process.send_after(self(), :quit, 1_000)
   end
 
+  # Essa função cria um esquiador a cada 1 segundo
   def schedule_next_skier(_state) do
     Process.send_after(self(), :new_skier, 1_000)
   end
